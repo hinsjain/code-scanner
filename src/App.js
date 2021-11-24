@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import './App.css'
+import Header from './components/Header/Header';
+import Scanner from './components/Scanner/Scanner';
+import Tracker from './components/Tracker/Tracker';
+import Upload from './components/Upload/Upload';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Router>
+        <Header />
+        <div className="content">
+          <Routes>
+            <Route exact path="/" element={<Upload />}></Route>
+            <Route exact path="/scanner" element={<Scanner />}></Route>
+            <Route exact path="/tracker" element={<Tracker />}></Route>
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 }

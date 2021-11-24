@@ -1,0 +1,12 @@
+.upload {
+    padding: 20px;
+    background-color: #e6d6d566 !important;
+}
+
+.upload__button {
+    margin-top: 10px !important;
+}
+
+.upload__select {
+    font-size: 1.1rem;
+}

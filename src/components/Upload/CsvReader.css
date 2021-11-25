@@ -1,0 +1,45 @@
+.csvReader{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.csvReader__form {
+    display: flex;
+    padding: 20px;
+}
+
+.csvReader__table {
+    padding: 20px;
+    display: flex;
+    padding-top: 0px;
+}
+
+.generateQrCode {
+    display: flex !important;
+}
+
+.table__data {
+    border-left: 4px solid black;
+    padding: 15px;
+}
+
+.tabledata {
+    border: 1px solid black;
+}
+
+.tabledata__cell {
+    font-weight: bold !important;
+}
+
+.tabledata tr:nth-of-type(even) {
+    background-color: white !important;
+}
+
+thead {
+    background-color: #eacb74 !important;
+}
+
+tr {    
+    border: 1.5px solid black !important;
+}

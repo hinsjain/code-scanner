@@ -1,9 +1,12 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, FormControl } from "@material-ui/core";
 import React, { useState } from "react";
 import QRCode from "qrcode";
 import FileSaver, { saveAs } from "file-saver";
+import './CsvReader.css'
 
 function GenerateCode({ nameList }) {
+
+	const [disabledDownload, setDisabledDownload] = useState(true)
 	const [imageUrl, setImageUrl] = useState([
 		{
 			url: "",
@@ -33,26 +36,31 @@ function GenerateCode({ nameList }) {
 			}
 			return null;
 		});
+		setDisabledDownload(false)
 	};
 
 	const onClickDownload = () => {
 		if (imageUrl.length > 0) {
 			imageUrl.map((image) => FileSaver.saveAs(`${image.url}`, `${image.name}.png`));
 		}
+
+		setImageUrl([{
+			url: "",
+			name: "",
+		}])
 	};
 
 	return (
 		<div>
-			<Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-				<Button variant="contained" color="primary" onClick={onButtonHandler}>
+			<FormControl className="generateQrCode">
+				<Button type="submit" disabled={!(nameList[0])} variant="contained" color="primary" onClick={onButtonHandler}>
 					Generate
 				</Button>
 				<br />
-				<br />
-				<Button variant="contained" color="primary" onClick={onClickDownload}>
+				<Button type="submit" disabled={disabledDownload} variant="contained" color="primary" onClick={onClickDownload}>
 					Download
 				</Button>
-			</Grid>
+			</FormControl>
 		</div>
 	);
 }

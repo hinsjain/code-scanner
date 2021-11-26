@@ -1,45 +1,66 @@
-.csvReader{
-    display: flex;
-    justify-content: space-evenly;
-    padding: 10px;
+.csvReader {
+	display: flex;
+	justify-content: space-evenly;
+	padding: 10px;
 }
 
 .csvReader__form {
-    display: flex;
-    padding: 20px;
+	display: flex;
+	padding: 20px;
 }
 
 .csvReader__table {
-    padding: 20px;
-    display: flex;
-    padding-top: 0px;
+	padding: 20px;
+	display: flex;
+	padding-top: 0px;
 }
 
 .generateQrCode {
-    display: flex !important;
+	display: flex !important;
 }
 
 .table__data {
-    border-left: 4px solid black;
-    padding: 15px;
+	border-left: 4px solid black;
+	padding: 15px;
+    overflow-y: scroll;
+    height: 60vh;
+    padding-top: 0;
 }
 
 .tabledata {
-    border: 1px solid black;
+	border: 1px solid black;
 }
 
 .tabledata__cell {
-    font-weight: bold !important;
+	font-weight: bold !important;
 }
 
 .tabledata tr:nth-of-type(even) {
-    background-color: white !important;
+	background-color: white !important;
 }
 
 thead {
-    background-color: #eacb74 !important;
+	background-color: #eacb74 !important;
 }
 
-tr {    
-    border: 1.5px solid black !important;
+tr {
+	border: 1.5px solid black !important;
+}
+
+@media (max-width: 900px) {
+	.csvReader {
+		flex-direction: column;
+	}
+
+	.table__data {
+		border-left: none;
+		border-top: 4px solid black;
+        margin-top: 10px;
+        padding-top: 15px;
+	}
+
+    .csvReader__table {
+        padding: 0px;
+    }
+
 }

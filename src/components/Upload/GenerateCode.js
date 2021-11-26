@@ -1,12 +1,15 @@
 import { Button, FormControl } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QRCode from "qrcode";
-import FileSaver, { saveAs } from "file-saver";
 import './CsvReader.css'
+import JSZip from "jszip";
+import JSZipUtils from "jszip-utils";
+import saveAs from "save-as";
 
-function GenerateCode({ nameList }) {
+function GenerateCode({ nameList, value }) {
 
 	const [disabledDownload, setDisabledDownload] = useState(true)
+    const [disabledGenerate, setDisabledGenerate] = useState(true)
 	const [imageUrl, setImageUrl] = useState([
 		{
 			url: "",
@@ -14,6 +17,11 @@ function GenerateCode({ nameList }) {
 		},
 	]);
 
+    useEffect( () => {
+        setDisabledGenerate(value)
+    }, [value])
+
+    console.log(value)
 	const generateQrCode = async (text) => {
 		try {
 			const response = await QRCode.toDataURL(text);
@@ -37,23 +45,46 @@ function GenerateCode({ nameList }) {
 			return null;
 		});
 		setDisabledDownload(false)
+        setDisabledGenerate(!value)
 	};
 
-	const onClickDownload = () => {
-		if (imageUrl.length > 0) {
-			imageUrl.map((image) => FileSaver.saveAs(`${image.url}`, `${image.name}.png`));
-		}
+    function generateZip(imageUrls) {
+        const zip = new JSZip();
+        let count = 0;
+        const zipFilename = "QR.zip";
+    
+        imageUrls.forEach(async function (image) {
+            const filename = image.name
+            try {
+                const img = await JSZipUtils.getBinaryContent(`${image.url}`);
+                zip.file(`${filename}.png`, img, { base64: true });
+                count++;
+                if (count === imageUrls.length) {
+                    zip.generateAsync({ type: "blob" }).then(function (content) {
+                        saveAs(content, zipFilename);
+                    });
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        });
+    }
 
-		setImageUrl([{
-			url: "",
-			name: "",
-		}])
+	const onClickDownload = () => {
+		// if (imageUrl.length > 0) {
+		// 	imageUrl.map((image) => FileSaver.saveAs(`${image.url}`, `${image.name}.png`));
+		// }
+        generateZip(imageUrl)
+
+        setImageUrl( (imageUrl) => [])
+
+        setDisabledDownload(true)
 	};
 
 	return (
 		<div>
 			<FormControl className="generateQrCode">
-				<Button type="submit" disabled={!(nameList[0])} variant="contained" color="primary" onClick={onButtonHandler}>
+				<Button type="submit" disabled={disabledGenerate} variant="contained" color="primary" onClick={onButtonHandler}>
 					Generate
 				</Button>
 				<br />

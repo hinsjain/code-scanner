@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {Container, Card, CardContent, Grid} from '@material-ui/core';
+import {Card, CardContent, Grid} from '@material-ui/core';
 import QrReader from 'react-qr-reader';
+import './Scanner.css'
 
 
 function Scanner() { 
@@ -15,25 +16,19 @@ function Scanner() {
     }
    }
   return (
-    <Container className="conatiner">
-          <Card>
-              <h2 className="title">Generate Download & Scan QR Code with React js</h2>
-              <CardContent>
-                  <Grid container spacing={2}>
-                      <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-                         <h3>Qr Code Scan by Web Cam</h3>
-                         <QrReader
+          <Card className="conatiner">
+              <h4 className="scanner_title">Scan QR Code</h4>
+              <CardContent className="scanner__cardContent">
+                      <Grid>
+                         <QrReader className="qrReader"
                          delay={300}
-                         style={{width: '100%'}}
                          onError={handleErrorWebCam}
                          onScan={handleScanWebCam}
                          />
-                         <h3>Scanned By WebCam Code: {scanResultWebCam}</h3>
+                         <h3>{scanResultWebCam}</h3>
                       </Grid>
-                  </Grid>
               </CardContent>
           </Card>
-    </Container>
   );
 }
 

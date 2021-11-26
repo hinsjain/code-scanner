@@ -1,0 +1,13 @@
+.qrReader {
+    width: 350px !important;
+}
+
+.conatiner {
+    background-color: #e6d6d566 !important;
+}
+
+.scanner_title {
+    justify-content: center !important;
+    text-align: center;
+    margin-bottom: -5px;
+}

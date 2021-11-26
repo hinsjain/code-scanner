@@ -8,6 +8,8 @@ function CsvReader() {
   const [csvFile, setCsvFile] = useState();
   const [csvArray, setCsvArray] = useState([]);
 
+  const [buttonValue, setButtonValue] = useState(true)
+
   const processCSV = (str, delim = ",") => {
     const headers = str.slice(0, str.indexOf("\n")).split(delim);
     const rows = str.slice(str.indexOf("\n") + 1).split("\n");
@@ -22,6 +24,7 @@ function CsvReader() {
     });
 
     setCsvArray(newArray);
+    setButtonValue(false)
   };
 
   const submit = () => {
@@ -34,6 +37,7 @@ function CsvReader() {
     };
 
     reader.readAsText(file);
+    setButtonValue(true)
   };
 
   return (
@@ -62,7 +66,7 @@ function CsvReader() {
             Submit
           </Button>
 			<br/>
-          <GenerateCode nameList={csvArray} />
+          <GenerateCode nameList={csvArray} value={buttonValue} />
         </FormControl>
       </div>
 

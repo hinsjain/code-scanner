@@ -8,12 +8,15 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "file-saver": "^2.0.5",
+    "jszip": "^3.7.1",
+    "jszip-utils": "^0.1.0",
     "qrcode": "^1.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-qr-reader": "^2.2.1",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
+    "save-as": "^0.1.8",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

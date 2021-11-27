@@ -21,7 +21,6 @@ function GenerateCode({ nameList, value }) {
         setDisabledGenerate(value)
     }, [value])
 
-    console.log(value)
 	const generateQrCode = async (text) => {
 		try {
 			const response = await QRCode.toDataURL(text);

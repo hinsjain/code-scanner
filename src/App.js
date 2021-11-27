@@ -14,8 +14,8 @@ function App() {
         <div className="content">
           <Routes>
             <Route exact path="/" element={<Upload />}></Route>
-            <Route exact path="/scanner" element={<Scanner />}></Route>
-            <Route exact path="/tracker" element={<Tracker />}></Route>
+            <Route path="/scanner" element={<Scanner />}></Route>
+            <Route path="/tracker" element={<Tracker />}></Route>
           </Routes>
         </div>
       </Router>

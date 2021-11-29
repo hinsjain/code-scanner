@@ -6,8 +6,8 @@ function Header() {
     return (
         <div className="header">
           <NavLink exact to="/" activeClassName="active">Upload</NavLink>
-          <NavLink exact to="/scanner" activeClassName="active">Scanner</NavLink>
-          <NavLink exact to="/tracker" activeClassName="active">Tracker</NavLink>
+          <NavLink to="/scanner" activeClassName="active">Scanner</NavLink>
+          <NavLink to="/tracker" activeClassName="active">Tracker</NavLink>
         </div>
     )
 }

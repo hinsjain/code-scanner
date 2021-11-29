@@ -18,8 +18,7 @@
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
     "save-as": "^0.1.8",
-    "web-vitals": "^1.1.2",
-    "proxy": "http://localhost:8080"
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",

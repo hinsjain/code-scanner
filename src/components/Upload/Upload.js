@@ -4,6 +4,7 @@ import CsvReader from './CsvReader'
 import './Upload.css'
 
 function Upload() {
+
     return (
         <Card variant = "elevation" className="upload">
             <CsvReader />            

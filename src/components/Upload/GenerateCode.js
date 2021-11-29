@@ -10,117 +10,122 @@ import axios from "axios";
 const baseURL = "http://localhost:3001/users/new";
 
 function GenerateCode({ nameList, value }) {
-	const [disabledDownload, setDisabledDownload] = useState(true);
-	const [disabledGenerate, setDisabledGenerate] = useState(true);
-	const [imageUrl, setImageUrl] = useState([
-		{
-			url: "",
-			name: "",
-		},
-	]);
+  const [disabledDownload, setDisabledDownload] = useState(true);
+  const [disabledGenerate, setDisabledGenerate] = useState(true);
 
-	const [post, setPost] = useState(null);
+  const [imageUrl, setImageUrl] = useState([
+    {
+      url: "",
+      name: "",
+    },
+  ]);
 
-	const updateName = async (full_name) => {
-		await axios
-			.post(baseURL, {
-				full_name: full_name,
-				created: 1,
-			})
-			.then((response) => {
-				setPost(response.data);
-			});
-	};
+  const [post, setPost] = useState(null);
 
-	useEffect(() => {
-		setDisabledGenerate(value);
-	}, [value]);
+  const updateName = async (full_name, qr_code) => {
+    await axios
+      .post(baseURL, {
+        full_name: full_name,
+        qr_code: qr_code,
+        created: 1,
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
+  };
 
-	const generateQrCode = async (text) => {
-		try {
-			const response = await QRCode.toDataURL(text);
+  useEffect(() => {
+    setDisabledGenerate(value);
+  }, [value]);
 
-			const obj = {
-				url: response,
-				name: text,
-			};
-			updateName(text);
-			setImageUrl((imageUrl) => [...imageUrl, obj]);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  const generateQrCode = async (text) => {
+    try {
+      let now = new Date();
+      const qrData = now.getTime() + Math.floor(Math.random() * 1000000);
+		const qr = qrData.toString()
+      const response = await QRCode.toDataURL(qr);
 
-	const onButtonHandler = () => {
-		nameList.map((name) => {
-			if (name.firstName !== undefined && name.lastname !== undefined) {
-				let fullName = `${name.firstName} ${name.lastname}`;
-				generateQrCode(fullName);
-			}
-			return null;
-		});
-		setDisabledDownload(false);
-		setDisabledGenerate(!value);
-	};
+      const obj = {
+        url: response,
+        name: text,
+      };
+      updateName(text, qr);
+      setImageUrl((imageUrl) => [...imageUrl, obj]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-	function generateZip(imageUrls) {
-		const zip = new JSZip();
-		let count = 0;
-		const zipFilename = "QR.zip";
+  const onButtonHandler = () => {
+    nameList.map((name) => {
+      if (name.firstName !== undefined && name.lastname !== undefined) {
+        let fullName = `${name.firstName} ${name.lastname}`;
+        generateQrCode(fullName);
+      }
+      return null;
+    });
+    setDisabledDownload(false);
+    setDisabledGenerate(!value);
+  };
 
-		imageUrls.forEach(async function (image) {
-			const filename = image.name;
-			try {
-				const img = await JSZipUtils.getBinaryContent(`${image.url}`);
-				zip.file(`${filename}.png`, img, { base64: true });
-				count++;
-				if (count === imageUrls.length) {
-					zip.generateAsync({ type: "blob" }).then(function (content) {
-						saveAs(content, zipFilename);
-					});
-				}
-			} catch (err) {
-				console.log(err);
-			}
-		});
-	}
+  function generateZip(imageUrls) {
+    const zip = new JSZip();
+    let count = 0;
+    const zipFilename = "QR.zip";
 
-	const onClickDownload = () => {
-		// if (imageUrl.length > 0) {
-		// 	imageUrl.map((image) => FileSaver.saveAs(`${image.url}`, `${image.name}.png`));
-		// }
-		generateZip(imageUrl);
+    imageUrls.forEach(async function (image) {
+      const filename = image.name;
+      try {
+        const img = await JSZipUtils.getBinaryContent(`${image.url}`);
+        zip.file(`${filename}.png`, img, { base64: true });
+        count++;
+        if (count === imageUrls.length) {
+          zip.generateAsync({ type: "blob" }).then(function (content) {
+            saveAs(content, zipFilename);
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  }
 
-		setImageUrl((imageUrl) => []);
+  const onClickDownload = () => {
+    // if (imageUrl.length > 0) {
+    // 	imageUrl.map((image) => FileSaver.saveAs(`${image.url}`, `${image.name}.png`));
+    // }
+    generateZip(imageUrl);
 
-		setDisabledDownload(true);
-	};
+    setImageUrl((imageUrl) => []);
 
-	return (
-		<div>
-			<FormControl className="generateQrCode">
-				<Button
-					type="submit"
-					disabled={disabledGenerate}
-					variant="contained"
-					color="primary"
-					onClick={onButtonHandler}
-				>
-					Generate
-				</Button>
-				<br />
-				<Button
-					type="submit"
-					disabled={disabledDownload}
-					variant="contained"
-					color="primary"
-					onClick={onClickDownload}
-				>
-					Download
-				</Button>
-			</FormControl>
-		</div>
-	);
+    setDisabledDownload(true);
+  };
+
+  return (
+    <div>
+      <FormControl className="generateQrCode">
+        <Button
+          type="submit"
+          disabled={disabledGenerate}
+          variant="contained"
+          color="primary"
+          onClick={onButtonHandler}
+        >
+          Generate
+        </Button>
+        <br />
+        <Button
+          type="submit"
+          disabled={disabledDownload}
+          variant="contained"
+          color="primary"
+          onClick={onClickDownload}
+        >
+          Download
+        </Button>
+      </FormControl>
+    </div>
+  );
 }
 
 export default GenerateCode;

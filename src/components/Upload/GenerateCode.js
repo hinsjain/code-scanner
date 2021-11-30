@@ -20,8 +20,6 @@ function GenerateCode({ nameList, value }) {
     },
   ]);
 
-  const [post, setPost] = useState(null);
-
   const updateName = async (full_name, qr_code) => {
     await axios
       .post(baseURL, {
@@ -29,9 +27,6 @@ function GenerateCode({ nameList, value }) {
         qr_code: qr_code,
         created: 1,
       })
-      .then((response) => {
-        setPost(response.data);
-      });
   };
 
   useEffect(() => {

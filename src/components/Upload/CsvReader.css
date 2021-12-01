@@ -22,7 +22,7 @@
 .table__data {
 	border-left: 4px solid black;
 	padding: 15px;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 60vh;
     padding-top: 0;
 }

@@ -68,7 +68,7 @@ function Scanner() {
         <Grid>
           <QrReader
             className="qrReader"
-            delay={1000}
+            delay={500}
             onError={handleErrorWebCam}
             onScan={handleScanWebCam}
           />

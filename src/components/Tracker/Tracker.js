@@ -8,8 +8,7 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./Tracker.css";
-
-const baseURL = "http://localhost:3001/users";
+import baseURL from '../util'
 
 function Tracker() {
 	const [verifiedUser, setVerifiedUser] = useState([]);

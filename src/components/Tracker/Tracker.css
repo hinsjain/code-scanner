@@ -1,0 +1,28 @@
+.tracker {
+	padding: 15px;
+    overflow-y: auto;
+    height: 60vh;
+    padding-top: 0;
+    width: 100%;
+    width: 350px;
+}
+
+td, th {
+	border: 1px solid black;
+}
+
+.tracker__cell {
+	font-weight: bold !important;
+}
+
+.tracker__table tr:nth-of-type(even) {
+	background-color: #d7d7d7 !important;
+}
+
+thead {
+	background-color: #eacb74 !important;
+}
+
+.tracker__bodyCell {
+    width: 50%;
+}

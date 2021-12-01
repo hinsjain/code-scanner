@@ -3,8 +3,7 @@ import { Card, CardContent, Grid } from "@material-ui/core";
 import QrReader from "react-qr-reader";
 import "./Scanner.css";
 import axios from "axios";
-
-const baseURL = "http://localhost:3001/users";
+import baseURL from '../util'
 
 function Scanner() {
   const [scanResultWebCam, setScanResultWebCam] = useState("");

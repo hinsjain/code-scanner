@@ -3,6 +3,7 @@ import { useState } from "react";
 import GenerateCode from "./GenerateCode";
 import TableData from "./TableData";
 import './CsvReader.css'
+import ExampleCSV from '../../template/template.csv'
 
 function CsvReader() {
   const [csvFile, setCsvFile] = useState();
@@ -22,7 +23,7 @@ function CsvReader() {
       }, {});
       return eachObject;
     });
-
+    console.log(newArray)
     setCsvArray(newArray);
     setButtonValue(false)
   };
@@ -44,7 +45,8 @@ function CsvReader() {
     <div  className="csvReader">
       <div>
         <FormControl className="csvReader__form">
-          <p>Please upload CSV file</p>
+          <p>Please upload CSV file<br/>Click <a href={ExampleCSV} download="template">here</a> to download the template</p>
+          
           <input
             type="file"
             accept=".csv"

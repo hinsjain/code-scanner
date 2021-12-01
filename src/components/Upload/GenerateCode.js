@@ -6,8 +6,7 @@ import JSZip from "jszip";
 import JSZipUtils from "jszip-utils";
 import saveAs from "save-as";
 import axios from "axios";
-
-const baseURL = "http://localhost:3001/users/new";
+import baseURL from '../util'
 
 function GenerateCode({ nameList, value }) {
   const [disabledDownload, setDisabledDownload] = useState(true);
@@ -22,7 +21,7 @@ function GenerateCode({ nameList, value }) {
 
   const updateName = async (full_name, qr_code) => {
     await axios
-      .post(baseURL, {
+      .post(`${baseURL}/new`, {
         full_name: full_name,
         qr_code: qr_code,
         created: 1,

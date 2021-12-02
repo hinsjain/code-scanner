@@ -50,6 +50,8 @@ function Scanner() {
       } else {
         setScanResultWebCam(`Not found`); //Not present in the QR created list
       }
+
+      return true
     });
   };
 
